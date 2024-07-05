@@ -55,49 +55,55 @@ function App() {
   console.log(weeklyIncome.length)
   console.log(pageNumber)
   return (
-    <div className="">
-      <div className="bg-slate-800 p-3 font-mono text-white h-205 w-screen">
+    <div className="h-screen bg-slate-900">
+      <div className="bg-slate-800 p-3 font-mono text-white h-205 w-screen sm:flex sm:items-center sm:justify-between">
         <h1 className="text-3xl font-bold animate-pulse text-center sm:text-left">ComShop Income Management</h1>
-        <nav className='text-center'>
-          <ul className="flex flex-row text-l">
-            <li className='mr-5 cursor-pointer transition ease-in-out delay-50 hover:scale-110'>Expenditures</li>
-            <li className='mr-5 cursor-pointer transition ease-in-out delay-50 hover:scale-110'>Miscellaneous</li>
-            <li className='mr-5 cursor-pointer transition ease-in-out delay-50 hover:scale-110'>Net Income</li>
+        <nav className='text-sm sm:text-lg'>
+          <ul className="flex flex-row justify-center">
+            <li className='mr-5 cursor-pointer transition ease-in-out delay-50 hover:scale-110'>General info</li>
+            <li className='mr-5 cursor-pointer transition ease-in-out delay-50 hover:scale-110'>Weekly Records</li>
             <li className='mr-5 cursor-pointer transition ease-in-out delay-50 hover:scale-110'>About</li>
           </ul>
         </nav>
       </div>
-      <div className='bg-slate-900 h-screen flex'>
-        <div className='p-10'>
-          <h1 className='text-4xl text-white'>Month: {monthNumber}</h1>
-          <h1 className='text-4xl text-white'>Week: {weekNumber}</h1>
-          <h1 className='text-4xl text-white'>Gross Income: {grossIncome}</h1>
-          <h1 className='text-4xl text-white'>Net Income: {netIncome}</h1>
-          <button onClick={clicked} className='bg-orange-400 pt-1 pb-1 pl-2 pr-2 rounded-lg mt-5 cursor-pointer transition ease-in-out delay-50 hover:scale-110'>Add Income</button>
+      <div className='bg-slate-900 flex flex-col p-8 items-center'>
+        <div className='p-5 bg-orange-500 rounded-3xl flex flex-col justify-center items-center'>
+          <h1 className='text-3xl mb-3 text-white bg-slate-900 pl-5 pr-5 pb-1 pt-1 rounded-3xl'>General info:</h1>
+          <p className='text-3xl text-white'>Month: {monthNumber}</p>
+          <p className='text-3xl text-white'>Week: {weekNumber}</p>
+          <p className='text-3xl text-white'>Gross Income: {grossIncome}</p>
+          <p className='text-3xl text-white'>Net Income: {netIncome}</p>
+          <button onClick={clicked} className='text-lg text-white bg-slate-600 pt-1 pb-1 pl-3 pr-3 rounded-3xl mt-5 cursor-pointer transition ease-in-out delay-50 hover:scale-110'>Add Income</button>
         </div> 
         {buttonClicked && (
           <div>
-            <form className=' mt-10 flex flex-col' onSubmit={handleSubmit(onSubmit)}>
-              <label className='mb-5 text-4xl text-white'>FROM:</label>
-              <input className='mb-5 text-3xl' type='date' {...register('weekStart')}  />
-              <label className='mb-5 text-4xl text-white'>TO:</label>
-              <input className='mb-5 text-3xl' type='date' {...register('weekEnd')} />
-              <input className='mb-5 text-3xl' placeholder='Weekly Income' type="number" {...register("weeklyIncome", { min: 0, max: 999999 })} />
-              <input className='mb-5 text-3xl' placeholder='Internet Cost' type="number" {...register("internetCost", { min: 0, max: 999999 })} />
-              <input className='mb-5 text-3xl' placeholder='Electricity Cost' type="number" {...register("electricityCost", { min: 0, max: 999999 })} />
-              <input className='text-3xl' placeholder='Miscellaneous' type="number" {...register("miscellaneous", { min: 0, max: 999999 })} />
+            <form className='mt-10 mb-5 flex flex-col' onSubmit={handleSubmit(onSubmit)}>
+              <label className='mb-5 text-3xl text-white pl-5 pr-5 pb-1 pt-1 rounded-3xl'>FROM:</label>
+              <input className='rounded-lg mb-5 text-3xl text-center' type='date' {...register('weekStart')}  />
+              <label className='mb-5 text-3xl text-white pl-5 pr-5 pb-1 pt-1 rounded-3xl'>TO:</label>
+              <input className='rounded-lg mb-5 text-3xl text-center' type='date' {...register('weekEnd')} />
+              <input className='rounded-lg mb-5 text-2xl text-center' placeholder='Weekly Income' type="number" {...register("weeklyIncome", { min: 0, max: 999999 })} />
+              <input className='rounded-lg mb-5 text-2xl text-center' placeholder='Internet Cost' type="number" {...register("internetCost", { min: 0, max: 999999 })} />
+              <input className='rounded-lg mb-5 text-2xl text-center' placeholder='Electricity Cost' type="number" {...register("electricityCost", { min: 0, max: 999999 })} />
+              <input className='rounded-lg text-2xl text-center' placeholder='Miscellaneous' type="number" {...register("miscellaneous", { min: 0, max: 999999 })} />
               <input className='bg-orange-400 pt-1 pb-1 pl-2 pr-2 rounded-lg mt-5 cursor-pointer transition ease-in-out delay-50 hover:scale-110' type='submit' />
             </form>
           </div>
         )}
-        <div className='p-10 text-white'>
-          <h1>Week {pageNumber + 1} </h1>
-          <h1>Date: {weekStart[pageNumber]} {weekEnd[pageNumber]}</h1>
-          <p>Weekly Income: {weeklyIncome[pageNumber]}</p>
-          <p>Weekly Miscellaneous: {weeklyMiscellaneous[pageNumber]}</p>
-          <button onClick={previous} className='bg-orange-400 pt-1 pb-1 pl-2 pr-2 rounded-lg mt-5 mr-2 cursor-pointer transition ease-in-out delay-50 hover:scale-110 text-black' disabled={previousPageDisabled}>Previous</button>
-          <button onClick={next} className='bg-orange-400 pt-1 pb-1 pl-2 pr-2 rounded-lg mt-5 cursor-pointer transition ease-in-out delay-50 hover:scale-110 text-black' disabled={nextPageDisabled}>Next</button>
-        </div>
+        {weeklyIncome.length === 0 && (
+          <></>
+        )}
+        {weeklyIncome.length > 0 && (
+          <div className='mt-5 bg-orange-500 rounded-3xl flex flex-col p-5'>
+            <h1 className='text-3xl mt-3 mb-3 text-white bg-slate-900 pl-5 pr-5 pb-1 pt-1 rounded-3xl'>Weekly Records:</h1>
+            <p className='text-xl text-white'>Week {pageNumber + 1} </p>
+            <p className='text-xl text-white'>Date: {weekStart[pageNumber]} to {weekEnd[pageNumber]}</p>
+            <p className='text-xl text-white'>Income: {weeklyIncome[pageNumber]}</p>
+            <p className='text-xl text-white'>Miscellaneous: {weeklyMiscellaneous[pageNumber]}</p>
+            <button onClick={previous} className='text-lg text-white bg-slate-600 pt-1 pb-1 pl-2 pr-2 rounded-lg mt-5 cursor-pointer transition ease-in-out delay-50 hover:scale-110' disabled={previousPageDisabled}>Previous</button>
+            <button onClick={next} className='text-lg text-white bg-slate-600 pt-1 pb-1 pl-2 pr-2 rounded-lg mt-3 cursor-pointer transition ease-in-out delay-50 hover:scale-110' disabled={nextPageDisabled}>Next</button>
+          </div>
+        )}
       </div>
     </div>
   );
