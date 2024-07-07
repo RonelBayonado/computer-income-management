@@ -7,8 +7,10 @@ function App() {
   const onSubmit = (data) => {
     setWeeklyIncome([...weeklyIncome, data.weeklyIncome])
     setWeeklyMiscellaneous([...weeklyMiscellaneous, data.miscellaneous])
+    setWeeklyInternetCost([...weeklyInternetCost, data.internetCost])
+    setWeeklyElectricityCost([...weeklyElectricityCost, data.electricityCost])
     setGrossIncome(grossIncome + Number(data.weeklyIncome));
-    setNetIncome(netIncome + Number(data.weeklyIncome - data.miscellaneous))
+    setNetIncome(netIncome + Number(data.weeklyIncome - data.miscellaneous - data.internetCost - data.electricityCost))
     setButtonClicked(false);
     setWeekNumber(weekNumber + 1);
     setWeekStart([...weekStart, data.weekStart]);
@@ -16,11 +18,12 @@ function App() {
     if(weekNumber === 3) {
       setMonthNumber(monthNumber + 1);
       setWeekNumber(0);
-      setNetIncome(netIncome + Number(data.weeklyIncome - data.miscellaneous - data.internetCost - data.electricityCost))
     }
   } 
   const [weeklyIncome, setWeeklyIncome] = useState([])
   const [weeklyMiscellaneous, setWeeklyMiscellaneous] = useState([])
+  const [weeklyElectricityCost, setWeeklyElectricityCost] = useState([])
+  const [weeklyInternetCost, setWeeklyInternetCost] = useState([])
   const [weekStart, setWeekStart] = useState([])
   const [weekEnd, setWeekEnd] = useState([])
   const [weekNumber, setWeekNumber] = useState(0);
@@ -32,18 +35,16 @@ function App() {
   const [nextPageDisabled, setNextPageDisabled] = useState(false);
   const [previousPageDisabled, setPreviousPageDisabled] = useState(false);
 
-  useEffect(() => {   
-    if (pageNumber <= weeklyIncome.length) {
+  useEffect(() => {
+    if (pageNumber < weeklyIncome.length) {
       setNextPageDisabled(false)
-      setPageNumber(pageNumber + 1);
     } else {
       setNextPageDisabled(true)
     }
-    if(pageNumber === 0) {
+    if(pageNumber === 1) {
       setPreviousPageDisabled(true);
     } else {
       setPreviousPageDisabled(false);
-      setPageNumber(pageNumber - 1);
     }
   },[pageNumber, weeklyIncome])
 
@@ -52,13 +53,12 @@ function App() {
   }
   const next = () => {
     //if (weeklyIncome.length <= pageNumber) {
-    
+    setPageNumber(pageNumber + 1);
   };
   const previous = () => {
-    
+    setPageNumber(pageNumber - 1);
   }
-  console.log(weeklyIncome.length)
-  console.log(pageNumber)
+  
   return (
     <div className="h-screen bg-slate-900">
       <div className="bg-slate-800 p-3 font-mono text-white h-205 w-screen sm:flex sm:items-center sm:justify-between">
@@ -102,9 +102,12 @@ function App() {
           <div className='mt-5 bg-orange-500 rounded-3xl flex flex-col p-5'>
             <h1 className='text-3xl mt-3 mb-3 text-white bg-slate-900 pl-5 pr-5 pb-1 pt-1 rounded-3xl'>Weekly Records:</h1>
             <p className='text-xl text-white'>Week {pageNumber} </p>
-            <p className='text-xl text-white'>Date: {weekStart[pageNumber]} to {weekEnd[pageNumber]}</p>
-            <p className='text-xl text-white'>Income: {weeklyIncome[pageNumber]}</p>
-            <p className='text-xl text-white'>Miscellaneous: {weeklyMiscellaneous[pageNumber]}</p>
+            <p className='text-xl text-white'>Date: {weekStart[pageNumber-1]} to {weekEnd[pageNumber-1]}</p>
+            <p className='text-xl text-white'>Income: {weeklyIncome[pageNumber-1]}</p>
+            <p className='text-xl text-white'>Miscellaneous: {weeklyMiscellaneous[pageNumber-1]}</p>
+            <p className='text-xl text-white'>Internet Cost: {weeklyInternetCost[pageNumber-1]}</p>
+            <p className='text-xl text-white'>Electricity Cost: {weeklyElectricityCost[pageNumber-1]}</p>
+
             <button onClick={previous} className='text-lg text-white bg-slate-600 pt-1 pb-1 pl-2 pr-2 rounded-lg mt-5 cursor-pointer transition ease-in-out delay-50 hover:scale-110' disabled={previousPageDisabled}>Previous</button>
             <button onClick={next} className='text-lg text-white bg-slate-600 pt-1 pb-1 pl-2 pr-2 rounded-lg mt-3 cursor-pointer transition ease-in-out delay-50 hover:scale-110' disabled={nextPageDisabled}>Next</button>
           </div>
