@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import { useForm } from "react-hook-form";
 
 function App() {
@@ -28,29 +28,34 @@ function App() {
   const [grossIncome, setGrossIncome] = useState(0);
   const [netIncome, setNetIncome] = useState(0);     
   const [buttonClicked, setButtonClicked] = useState(false);
-  const [pageNumber, setPageNumber] = useState(0);
+  const [pageNumber, setPageNumber] = useState(1);
   const [nextPageDisabled, setNextPageDisabled] = useState(false);
   const [previousPageDisabled, setPreviousPageDisabled] = useState(false);
 
-  const clicked = () => {
-    setButtonClicked(true);
-  }
-  const next = () => {
-    //if (weeklyIncome.length <= pageNumber) {
-    if (pageNumber < weeklyIncome.length) {
+  useEffect(() => {   
+    if (pageNumber <= weeklyIncome.length) {
       setNextPageDisabled(false)
       setPageNumber(pageNumber + 1);
     } else {
       setNextPageDisabled(true)
     }
-  };
-  const previous = () => {
     if(pageNumber === 0) {
       setPreviousPageDisabled(true);
     } else {
       setPreviousPageDisabled(false);
       setPageNumber(pageNumber - 1);
     }
+  },[pageNumber, weeklyIncome])
+
+  const clicked = () => {
+    setButtonClicked(true);
+  }
+  const next = () => {
+    //if (weeklyIncome.length <= pageNumber) {
+    
+  };
+  const previous = () => {
+    
   }
   console.log(weeklyIncome.length)
   console.log(pageNumber)
@@ -96,7 +101,7 @@ function App() {
         {weeklyIncome.length > 0 && (
           <div className='mt-5 bg-orange-500 rounded-3xl flex flex-col p-5'>
             <h1 className='text-3xl mt-3 mb-3 text-white bg-slate-900 pl-5 pr-5 pb-1 pt-1 rounded-3xl'>Weekly Records:</h1>
-            <p className='text-xl text-white'>Week {pageNumber + 1} </p>
+            <p className='text-xl text-white'>Week {pageNumber} </p>
             <p className='text-xl text-white'>Date: {weekStart[pageNumber]} to {weekEnd[pageNumber]}</p>
             <p className='text-xl text-white'>Income: {weeklyIncome[pageNumber]}</p>
             <p className='text-xl text-white'>Miscellaneous: {weeklyMiscellaneous[pageNumber]}</p>
