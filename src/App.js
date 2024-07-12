@@ -71,18 +71,18 @@ function App() {
           </ul>
         </nav>
       </div>
-      <div className='bg-slate-900 flex flex-col sm:flex-row sm:justify-center p-8 items-center'>
-        <div className='border-solid border-2 p-5 bg-orange-500 rounded-3xl flex flex-col justify-center items-center'>
-          <h1 className='text-3xl sm:text-5xl mb-3 text-white bg-slate-900 pl-5 pr-5 pb-1 pt-1 rounded-3xl'>General info:</h1>
+      <div className='bg-slate-900 flex flex-col sm:flex-col p-8 sm:h-full sm:flex-wrap items-center sm:items-start'>
+        <div className='border-solid border-2 p-5 bg-orange-500 sm:bg-transparent sm:border-0 rounded-3xl flex flex-col justify-center items-center sm:items-start'>
+          <h1 className='text-3xl sm:text-5xl mb-3 text-white sm:text-orange-500 sm:font-bold bg-slate-900 pl-5 pr-5 pb-1 pt-1 rounded-3xl'>General info:</h1>
           <p className='text-3xl sm:text-4xl text-white'>Month: {monthNumber}</p>
           <p className='text-3xl sm:text-4xl text-white'>Week: {weekNumber}</p>
           <p className='text-3xl sm:text-4xl text-white'>Gross Income: {grossIncome}</p>
           <p className='text-3xl sm:text-4xl text-white'>Net Income: {netIncome}</p>
           <button onClick={clicked} className='text-lg text-white bg-slate-600 pt-1 pb-1 pl-3 pr-3 rounded-3xl mt-5 cursor-pointer transition ease-in-out delay-50 hover:scale-110'>Add Income</button>
-        </div> 
+        </div>  
         {buttonClicked && (
           <div>
-            <form className='mt-10 sm:mt-0 sm:ml-10 mb-5 flex flex-col p-5 border-solid border-2 border-orange-500' onSubmit={handleSubmit(onSubmit)}>
+            <form className='sm:absolute sm:bottom-56 sm:left-2/4 mt-10 sm:mt-0 mb-5 flex flex-col p-5 border-solid border-2 border-orange-500' onSubmit={handleSubmit(onSubmit)}>
               <label className='mb-5 text-3xl sm:text-4xl text-white pl-5 pr-5 pb-1 pt-1 rounded-3xl'>FROM:</label>
               <input className='rounded-lg mb-5 text-3xl sm:text-4xl text-center' type='date' {...register('weekStart')}  />
               <label className='mb-5 text-3xl sm:text-4xl text-white pl-5 pr-5 pb-1 pt-1 rounded-3xl'>TO:</label>
@@ -99,8 +99,8 @@ function App() {
           <></>
         )}
         {weeklyIncome.length > 0 && (
-          <div className='border-solid border-2 mt-5 sm:mt-0 sm:ml-10 bg-orange-500 rounded-3xl flex flex-col p-5'>
-            <h1 className='text-3xl mt-3 mb-3 text-white bg-slate-900 pl-5 pr-5 pb-1 pt-1 rounded-3xl sm:text-4xl'>Weekly Records:</h1>
+          <div className='border-solid border-2 mt-5 sm:mt-0 bg-orange-500 sm:bg-transparent sm:border-0 rounded-3xl flex flex-col p-5'>
+            <h1 className='text-3xl mt-3 mb-3 text-white sm:text-orange-500 sm:font-bold bg-slate-900 pl-5 pr-5 pb-1 pt-1 rounded-3xl sm:text-5xl'>Weekly Records:</h1>
             <p className='text-xl sm:text-2xl text-white'>Week {pageNumber} </p>
             <p className='text-xl sm:text-2xl text-white'>Date: {weekStart[pageNumber-1]} to {weekEnd[pageNumber-1]}</p>
             <p className='text-xl sm:text-2xl text-white'>Income: {weeklyIncome[pageNumber-1]}</p>
@@ -112,7 +112,8 @@ function App() {
             <button onClick={next} className='text-lg text-white bg-slate-600 pt-1 pb-1 pl-2 pr-2 rounded-lg mt-3 cursor-pointer transition ease-in-out delay-50 hover:scale-110' disabled={nextPageDisabled}>Next</button>
           </div>
         )}
-      </div>
+        
+      </div>  
     </div>
   );
 }
