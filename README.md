@@ -1,3 +1,9 @@
+A simple computer shop income management system 
+
+![image](https://github.com/RonelBayonado/computer-income-management/assets/152316076/72eb3889-03d9-4147-b40a-cee1086be1ea)
+
+![image](https://github.com/RonelBayonado/computer-income-management/assets/152316076/14f6cb88-cf7c-4fb5-a01e-ef8f1cde3f58)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
