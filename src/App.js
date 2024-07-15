@@ -3,6 +3,7 @@ import { useState, useEffect} from 'react';
 import { useForm } from "react-hook-form";
 import { Button, Label, Modal } from "flowbite-react";
 import { BarChart } from '@mui/x-charts/BarChart';
+import { axisClasses } from '@mui/x-charts/ChartsAxis';
 
 function App() {
   const { register, handleSubmit } = useForm();
@@ -64,7 +65,21 @@ function App() {
   const onCloseModal = () => {
     setOpenModal(false);
   }
-  
+  const valueFormatter = (value) => `${value}PHP`;
+  const chartSetting = {
+    yAxis: [
+      {
+        label: 'Income (PHP)',
+      },
+    ],
+    width: 500,
+    height: 300,
+    sx: {
+      [`.${axisClasses.left} .${axisClasses.label}`]: {
+        transform: 'translate(-20px, 0)',
+      },
+    },
+  };
   return (
     <div className="h-screen bg-slate-900">
       <div className="bg-slate-800 p-3 font-mono text-white h-205 w-screen sm:flex sm:items-center sm:justify-between border-solid  border-b-2">
@@ -77,7 +92,7 @@ function App() {
           </ul>
         </nav>
       </div>
-      <Modal show={openModal} size="sm" onClose={onCloseModal} popup>
+      <Modal className='backdrop-blur-sm' show={openModal} size="sm" onClose={onCloseModal} popup>
           <Modal.Body className='bg-slate-800'>
             <div>
               <form className='mt-10 sm:mt-0 mb-5 flex flex-col p-5' onSubmit={handleSubmit(onSubmit)}>
@@ -121,15 +136,22 @@ function App() {
             </div>
           </div>
         )}
-         <div className='border-2 bg-white p-5 rounded-2xl'>
+        {weeklyIncome.length > 0 && (
+         <div className='border-2 bg-white p-4 rounded-2xl'>
+          <h1 className='text-3xl text-white sm:text-orange-500 sm:font-bold pl-5 pr-5 pb-1 pt-1 sm:pl-0 sm:pr-0 sm:pb-0 sm:pt-0 rounded-3xl sm:text-5xl sm:mb-5 sm:text-center'>Income Graph:</h1>
            <BarChart
               dataset={allData}
               xAxis={[{ dataKey: 'weekStart' , scaleType: 'band'}]}
-              series={[{ dataKey: 'weeklyIncome', label: 'Income'}]}
-              width={1200}
+              series={[
+                { dataKey: 'weeklyIncome', label: 'Income', valueFormatter },
+              ]}
+              {...chartSetting}
+              width={1000}
               height={700}
+              margin={{ left: 70}}
             />
         </div>
+        )}
       </div>   
     </div>
   );
