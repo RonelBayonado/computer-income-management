@@ -88,6 +88,7 @@ function App() {
           <ul className="flex flex-row justify-center">
             <li className='mr-5 cursor-pointer transition ease-in-out delay-50 hover:scale-110'>General info</li>
             <li className='peer/records mr-5 cursor-pointer transition ease-in-out delay-50 hover:scale-110'>Weekly Records</li>
+            <li className='mr-5 cursor-pointer transition ease-in-out delay-50 hover:scale-110'>Graph</li>
             <li className='mr-5 cursor-pointer transition ease-in-out delay-50 hover:scale-110'>About</li>
           </ul>
         </nav>
@@ -137,8 +138,8 @@ function App() {
           </div>
         )}
         {weeklyIncome.length > 0 && (
-         <div className='border-2 bg-white p-4 rounded-2xl'>
-          <h1 className='text-3xl text-white sm:text-orange-500 sm:font-bold pl-5 pr-5 pb-1 pt-1 sm:pl-0 sm:pr-0 sm:pb-0 sm:pt-0 rounded-3xl sm:text-5xl sm:mb-5 sm:text-center'>Income Graph:</h1>
+         <div className='mt-6 border-2 bg-white p-2 rounded-2xl'>
+          <h1 className='text-3xl underline text-white sm:text-orange-500 sm:font-bold pl-5 pr-5 pb-1 pt-1 sm:pl-0 sm:pr-0 sm:pb-0 sm:pt-0 rounded-3xl sm:text-5xl sm:mb-5 sm:text-center'>Income Graph:</h1>
            <BarChart
               dataset={allData}
               xAxis={[{ dataKey: 'weekStart' , scaleType: 'band'}]}
@@ -147,7 +148,7 @@ function App() {
               ]}
               {...chartSetting}
               width={1000}
-              height={700}
+              height={580}
               margin={{ left: 70}}
             />
         </div>
