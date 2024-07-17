@@ -62,6 +62,9 @@ function App() {
   const previous = () => {
     setPageNumber(pageNumber - 1);
   }
+  const edit = () => {
+    
+  }
   const onCloseModal = () => {
     setOpenModal(false);
   }
@@ -80,6 +83,7 @@ function App() {
       },
     },
   };
+  
   return (
     <div className="h-screen bg-slate-900">
       <div className="bg-slate-800 p-3 font-mono text-white h-205 w-screen sm:flex sm:items-center sm:justify-between border-solid  border-b-2">
@@ -133,7 +137,8 @@ function App() {
             <p className='text-xl sm:text-2xl text-white'>Electricity Cost: {weeklyElectricityCost[pageNumber-1]}</p>
             <div className='flex flex-col sm:block'>
               <button onClick={previous} className='sm:mr-2 text-lg text-white bg-slate-600 pt-1 pb-1 pl-3 pr-3 rounded-3xl mt-5 cursor-pointer transition ease-in-out delay-50 hover:scale-110' disabled={previousPageDisabled}>Previous</button>
-              <button onClick={next} className='text-lg text-white bg-slate-600 pt-1 pb-1 pl-3 pr-3 rounded-3xl mt-2 cursor-pointer transition ease-in-out delay-50 hover:scale-110' disabled={nextPageDisabled}>Next</button>
+              <button onClick={next} className='sm:mr-2 text-lg text-white bg-slate-600 pt-1 pb-1 pl-3 pr-3 rounded-3xl mt-2 cursor-pointer transition ease-in-out delay-50 hover:scale-110' disabled={nextPageDisabled}>Next</button>
+              <button onClick={edit} className='text-lg text-white bg-slate-600 pt-1 pb-1 pl-3 pr-3 rounded-3xl mt-2 cursor-pointer transition ease-in-out delay-50 hover:scale-110'>Edit</button>
             </div>
           </div>
         )}
